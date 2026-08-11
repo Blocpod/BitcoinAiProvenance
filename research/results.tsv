@@ -1,0 +1,5 @@
+experiment	hypothesis	result	decision
+baseline	H1-H5	Initial implementation created; first test run found one overly specific expected error code	fix-test-expectation
+iteration-1	H4	Merkle batch rejects the tampered proof through its public batch-verification error	keep
+iteration-2	release gate	Protocol gates passed; npm dry-run failed because its default cache path was unavailable	isolate-cache-and-rerun
+iteration-3	H1-H5	Adversarial review added canonical receipt ordering, full artifact re-add validation, strict proof-shape checks, batch-to-receipt linkage, local-journal validation, and explorer end-to-end verification	keep

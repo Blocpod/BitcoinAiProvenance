@@ -1,0 +1,48 @@
+{
+  "type": "btc-ai-gauntlet-report",
+  "version": "1.0",
+  "generatedAt": "2026-08-11T17:33:57.136Z",
+  "durationMs": 1729,
+  "summary": {
+    "passed": 7,
+    "failed": 0,
+    "total": 7
+  },
+  "gates": [
+    {
+      "name": "required-release-files",
+      "passed": true,
+      "details": "8 required files present"
+    },
+    {
+      "name": "syntax-check",
+      "passed": true,
+      "details": "23 modules parsed"
+    },
+    {
+      "name": "unit-integration-adversarial-tests",
+      "passed": true,
+      "details": "28 tests passed"
+    },
+    {
+      "name": "end-to-end-demo-and-verifier",
+      "passed": true,
+      "details": "demo, lineage, batch, and 3 artifacts verified"
+    },
+    {
+      "name": "secret-scan",
+      "passed": true,
+      "details": "48 files scanned"
+    },
+    {
+      "name": "claim-hygiene",
+      "passed": true,
+      "details": "8 documents checked"
+    },
+    {
+      "name": "package-dry-run",
+      "passed": true,
+      "details": "48 release files, 35692 bytes packed"
+    }
+  ]
+}

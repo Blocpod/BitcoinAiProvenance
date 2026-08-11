@@ -1,0 +1,35 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { generateIdentity } from '../src/crypto.mjs';
+import { ProvenanceWorkspace } from '../src/workspace.mjs';
+import { createReceipt, verifyLineage } from '../src/receipts.mjs';
+import { createBatch, verifyBatch } from '../src/batches.mjs';
+import { appendLocalAnchor, verifyLocalJournal } from '../src/local-anchor.mjs';
+import { readJson } from '../src/fs-util.mjs';
+
+test('complete offline provenance lifecycle passes', async (t) => {
+  const root = await mkdtemp(join(tmpdir(), 'btc-ai-'));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  const workspace = await new ProvenanceWorkspace(root).init();
+  const actor = generateIdentity('actor');
+  await workspace.saveIdentity('actor', actor);
+  const source = join(root, 'source.txt');
+  await writeFile(source, 'immutable input');
+  const artifact = await workspace.artifacts.addFile(source, { mediaType: 'text/plain' });
+  assert.equal(await workspace.artifacts.verify(artifact), true);
+  const receipt = createReceipt({ sequence: 0, action: 'artifact.registered', outputs: [artifact] }, actor);
+  await workspace.saveReceipt(receipt);
+  assert.equal(verifyLineage([receipt]).valid, true);
+  const batch = createBatch([receipt], actor, { batchNumber: 0 });
+  await workspace.saveBatch(batch);
+  assert.equal(verifyBatch(batch, [receipt]), true);
+  const anchor = await appendLocalAnchor(root, batch.envelope.statement.merkle.root);
+  assert.equal(verifyLocalJournal(await readJson(join(workspace.anchors, 'local-journal.json'))), true);
+  assert.equal(anchor.root, batch.envelope.statement.merkle.root);
+  const objectPath = join(workspace.artifacts.objects, artifact.digest);
+  await writeFile(objectPath, 'tampered input');
+  await assert.rejects(workspace.artifacts.verify(artifact), { code: 'ARTIFACT_TAMPERED' });
+});

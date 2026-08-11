@@ -1,0 +1,26 @@
+name: Feature request
+description: Propose a bounded, testable protocol or implementation improvement.
+title: "feature: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What concrete user or verifier problem should be solved?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: Define the smallest interoperable change and its acceptance test.
+    validations:
+      required: true
+  - type: textarea
+    id: trust
+    attributes:
+      label: Trust and compatibility analysis
+      description: Identify new assumptions, privacy consequences, and versioning impact.
+    validations:
+      required: true

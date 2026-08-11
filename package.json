@@ -1,0 +1,37 @@
+{
+  "name": "btc-ai-provenance-core",
+  "version": "0.1.0",
+  "description": "Bitcoin-anchored, independently verifiable provenance receipts for AI artifacts and agent actions.",
+  "keywords": [
+    "bitcoin",
+    "ai",
+    "provenance",
+    "agents",
+    "cryptography",
+    "merkle-tree"
+  ],
+  "author": "BlockPod",
+  "homepage": "https://github.com/Blocpod/BitcoinAiProvenance#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Blocpod/BitcoinAiProvenance.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Blocpod/BitcoinAiProvenance/issues"
+  },
+  "type": "module",
+  "private": true,
+  "bin": {
+    "btc-ai": "./bin/btc-ai.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test --test-reporter=spec test/*.test.mjs",
+    "gauntlet": "node scripts/gauntlet.mjs",
+    "demo": "node bin/btc-ai.mjs demo --workspace ./demo-workspace",
+    "serve": "node bin/btc-ai.mjs serve --workspace ./demo-workspace"
+  },
+  "license": "Apache-2.0"
+}

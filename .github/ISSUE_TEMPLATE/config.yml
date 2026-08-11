@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security guidance
+    url: https://github.com/Blocpod/BitcoinAiProvenance/blob/main/SECURITY.md
+    about: Review the security scope before disclosing sensitive details.
